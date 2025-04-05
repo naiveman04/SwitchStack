@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,9 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Login = () => {
   const { toast } = useToast();
+  const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +22,6 @@ const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
-    remember: false,
   });
 
   // Sign up form state
@@ -31,22 +32,41 @@ const Login = () => {
     confirmPassword: '',
   });
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    // If user is already logged in, redirect to profile
+    if (user) {
+      navigate('/profile', { replace: true });
+    }
+  }, [user, navigate]);
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
-    // Simulate login request
-    setTimeout(() => {
-      setIsLoading(false);
+    
+    try {
+      const { error } = await signIn(loginData.email, loginData.password);
+      
+      if (error) {
+        toast({
+          title: "Login failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        // Auth state change will handle redirect and success message
+      }
+    } catch (error: any) {
       toast({
-        title: "Login successful",
-        description: "Welcome back to SwitchStack!",
+        title: "Login failed",
+        description: error.message || "An unexpected error occurred",
+        variant: "destructive",
       });
-      navigate("/profile", { replace: true });
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (signupData.password !== signupData.confirmPassword) {
@@ -60,15 +80,35 @@ const Login = () => {
 
     setIsLoading(true);
 
-    // Simulate signup request
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const { error } = await signUp(
+        signupData.email, 
+        signupData.password,
+        signupData.name
+      );
+      
+      if (error) {
+        toast({
+          title: "Signup failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account created",
+          description: "Welcome to SwitchStack! Complete your profile to get started.",
+        });
+        // Auth state change will handle redirect
+      }
+    } catch (error: any) {
       toast({
-        title: "Account created",
-        description: "Welcome to SwitchStack! Complete your profile to get started.",
+        title: "Signup failed",
+        description: error.message || "An unexpected error occurred",
+        variant: "destructive",
       });
-      navigate("/profile", { replace: true });
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
