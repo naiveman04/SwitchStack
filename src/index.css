@@ -99,4 +99,34 @@
   .role-tag {
     @apply inline-flex items-center text-xs px-2 py-1 rounded-full;
   }
+  
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-card/50;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/40 rounded-full hover:bg-primary/60 transition-colors;
+  }
+  
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)/0.4) hsl(var(--card)/0.5);
+  }
+  
+  /* Rounded edges for sections */
+  .section-container {
+    @apply rounded-lg border border-border overflow-hidden;
+  }
+  
+  /* Loading spinner */
+  .spinner {
+    @apply w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto;
+  }
 }
