@@ -97,7 +97,7 @@
 
 @layer components {
   .role-tag {
-    @apply inline-flex items-center text-xs px-2 py-1 rounded-full;
+    @apply inline-flex items-center text-xs px-2 py-1;
   }
   
   /* Custom scrollbar styling */
@@ -111,7 +111,7 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary/40 rounded-full hover:bg-primary/60 transition-colors;
+    @apply bg-primary/40 hover:bg-primary/60 transition-colors;
   }
   
   /* For Firefox */
@@ -120,13 +120,13 @@
     scrollbar-color: hsl(var(--primary)/0.4) hsl(var(--card)/0.5);
   }
   
-  /* Rounded edges for sections */
+  /* Flat edges for sections - removed rounded-lg */
   .section-container {
-    @apply rounded-lg border border-border overflow-hidden;
+    @apply border border-border overflow-hidden;
   }
   
   /* Loading spinner */
   .spinner {
-    @apply w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto;
+    @apply w-8 h-8 border-4 border-primary/20 border-t-primary animate-spin mx-auto;
   }
 }
