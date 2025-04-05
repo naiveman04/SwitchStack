@@ -12,6 +12,7 @@ import { applyScrollEffects } from "./utils/scrollEffects";
 import LandingPage from "./pages/LandingPage";
 import RolesPage from "./pages/RolesPage";
 import RoleDetailPage from "./pages/RoleDetailPage";
+import RoadmapsPage from "./pages/RoadmapsPage";
 import ProfilePage from "./pages/ProfilePage";
 import Login from "./pages/Login";
 import AboutPage from "./pages/AboutPage";
@@ -35,6 +36,7 @@ const App = () => {
               <Route path="/" element={<LandingPage />} />
               <Route path="/roles" element={<RolesPage />} />
               <Route path="/role/:id" element={<RoleDetailPage />} />
+              <Route path="/roadmaps" element={<RoadmapsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/about" element={<AboutPage />} />

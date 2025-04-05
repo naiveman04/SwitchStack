@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowRight, Code, FileText, Star, Users } from 'lucide-react';
+import HeroSection from '@/components/HeroSection';
 
 const AboutPage = () => {
   return (
@@ -16,21 +16,15 @@ const AboutPage = () => {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 px-4">
-          <div className="container mx-auto">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                About SwitchStack
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-muted-foreground">
-                Helping tech professionals in Pune find their perfect career path
-              </p>
-              <Badge variant="outline" className="text-primary border-primary mb-8">
-                Made in Pune, for Pune
-              </Badge>
-            </div>
-          </div>
-        </section>
+        <HeroSection
+          title="About SwitchStack"
+          subtitle="Helping tech professionals in Pune find their perfect career path"
+          fadeOptions={{ startFade: 0.1, endFade: 0.5 }}
+        >
+          <Badge variant="outline" className="text-primary border-primary mb-8">
+            Made in Pune, for Pune
+          </Badge>
+        </HeroSection>
         
         {/* Mission Section */}
         <section className="py-16 bg-accent bg-opacity-10">

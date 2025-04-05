@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, BarChart3, Target } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
+import HeroSection from '@/components/HeroSection';
 
 const LandingPage = () => {
   return (
@@ -12,28 +12,24 @@ const LandingPage = () => {
       <NavBar />
       
       {/* Hero Section */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Switch Roles Smarter with SwitchStack
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-muted-foreground">
-            Input your skills, find roles in Pune, and get a tailored learning roadmap to land your dream job.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/roles">
-              <Button size="lg" className="text-lg px-8">
-                Get Started <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                Learn More
-              </Button>
-            </Link>
-          </div>
+      <HeroSection
+        title="Switch Roles Smarter with SwitchStack"
+        subtitle="Input your skills, find roles in Pune, and get a tailored learning roadmap to land your dream job."
+        fadeOptions={{ startFade: 0.1, endFade: 0.5 }}
+      >
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link to="/roles">
+            <Button size="lg" className="text-lg px-8">
+              Get Started <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/about">
+            <Button size="lg" variant="outline" className="text-lg px-8">
+              Learn More
+            </Button>
+          </Link>
         </div>
-      </section>
+      </HeroSection>
       
       {/* Features Section */}
       <section className="py-16 bg-accent bg-opacity-10">

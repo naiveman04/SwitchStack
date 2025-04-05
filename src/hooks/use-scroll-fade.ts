@@ -4,13 +4,24 @@ import { useState, useEffect, RefObject } from 'react';
 interface ScrollFadeOptions {
   startFade: number; // Percentage of section height (0-1) where fade starts
   endFade: number;   // Percentage of section height (0-1) where fade ends
+  startOpacity?: number; // Initial opacity (default: 1)
+  endOpacity?: number;   // Final opacity (default: 0)
+  reverse?: boolean;     // If true, opacity increases while scrolling instead of decreasing
 }
 
 export const useScrollFade = (
   ref: RefObject<HTMLElement>,
   options: ScrollFadeOptions = { startFade: 0.5, endFade: 1 }
 ): number => {
-  const [opacity, setOpacity] = useState(1);
+  const { 
+    startFade,
+    endFade,
+    startOpacity = 1, 
+    endOpacity = 0,
+    reverse = false 
+  } = options;
+  
+  const [opacity, setOpacity] = useState(startOpacity);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,17 +39,19 @@ export const useScrollFade = (
         const scrollPercentage = scrollPosition / elementHeight;
         
         // Calculate opacity based on scroll percentage
-        const { startFade, endFade } = options;
         const fadeRange = endFade - startFade;
         
         if (scrollPercentage <= startFade) {
-          setOpacity(1);
+          setOpacity(reverse ? endOpacity : startOpacity);
         } else if (scrollPercentage >= endFade) {
-          setOpacity(0);
+          setOpacity(reverse ? startOpacity : endOpacity);
         } else {
           // Linear interpolation for opacity between start and end fade points
           const fadePercentage = (scrollPercentage - startFade) / fadeRange;
-          setOpacity(1 - fadePercentage);
+          const calculatedOpacity = reverse
+            ? endOpacity + fadePercentage * (startOpacity - endOpacity)
+            : startOpacity - fadePercentage * (startOpacity - endOpacity);
+          setOpacity(calculatedOpacity);
         }
       }
     };
@@ -49,7 +62,7 @@ export const useScrollFade = (
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [ref, options]);
+  }, [ref, startFade, endFade, startOpacity, endOpacity, reverse]);
 
   return opacity;
 };

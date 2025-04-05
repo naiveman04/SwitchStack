@@ -7,16 +7,30 @@ interface HeroSectionProps {
   subtitle?: string;
   children?: React.ReactNode;
   className?: string;
+  fadeOptions?: {
+    startFade?: number;
+    endFade?: number;
+    startOpacity?: number;
+    endOpacity?: number;
+    reverse?: boolean;
+  };
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   children,
-  className = ''
+  className = '',
+  fadeOptions = {}
 }) => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const opacity = useScrollFade(heroRef, { startFade: 0.5, endFade: 1 });
+  const opacity = useScrollFade(heroRef, { 
+    startFade: 0.2,
+    endFade: 0.8,
+    startOpacity: 1,
+    endOpacity: 0.1,
+    ...fadeOptions 
+  });
 
   return (
     <div 
