@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -13,10 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  isAuthenticated?: boolean;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ isAuthenticated }) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const isAuthenticated = !!user;
 
   const handleSignOut = async () => {
     await signOut();

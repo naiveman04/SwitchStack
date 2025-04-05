@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
@@ -46,7 +45,7 @@ const mockUserSkills = {
   'Java': 1,
 };
 
-// Mock roadmap data (this would come from Gemini API in production)
+// Mock roadmap data
 const mockRoadmap = {
   '1': [
     {
@@ -124,7 +123,6 @@ const RoleDetailPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API fetch with a small delay
     const timer = setTimeout(() => {
       if (id && mockRoles[id]) {
         setRole(mockRoles[id]);
@@ -139,7 +137,7 @@ const RoleDetailPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
-        <NavBar isAuthenticated={true} />
+        <NavBar />
         <div className="flex-grow flex items-center justify-center">
           <div className="animate-pulse flex flex-col items-center">
             <div className="h-8 w-48 bg-muted rounded mb-4"></div>
@@ -154,7 +152,7 @@ const RoleDetailPage = () => {
   if (!role) {
     return (
       <div className="min-h-screen flex flex-col">
-        <NavBar isAuthenticated={true} />
+        <NavBar />
         <div className="flex-grow container mx-auto px-4 py-16 flex flex-col items-center">
           <h1 className="text-3xl font-bold mb-4">Role Not Found</h1>
           <p className="text-muted-foreground mb-8">The role you're looking for doesn't exist or has been removed.</p>
@@ -171,7 +169,7 @@ const RoleDetailPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <NavBar isAuthenticated={true} />
+      <NavBar />
       
       <main className="flex-grow container mx-auto px-4 py-8">
         <Link to="/roles" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6">
@@ -179,7 +177,6 @@ const RoleDetailPage = () => {
         </Link>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left column: Role details */}
           <div className="lg:col-span-1">
             <Card>
               <CardContent className="p-6">
@@ -238,7 +235,6 @@ const RoleDetailPage = () => {
             </Card>
           </div>
           
-          {/* Right column: Personalized Roadmap */}
           <div className="lg:col-span-2">
             <div className="bg-card rounded-lg border border-border p-6">
               <div className="flex items-center justify-between mb-6">
@@ -271,7 +267,6 @@ const RoleDetailPage = () => {
                       </div>
                     </div>
                     
-                    {/* Connect phases with a vertical line */}
                     {index < roadmap.length - 1 && (
                       <div className="absolute left-4 top-12 w-0.5 bg-border h-12 -ml-0.5"></div>
                     )}
