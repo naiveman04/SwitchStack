@@ -1,30 +1,14 @@
+
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Search, Menu, User, LogIn, LogOut } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Search, Menu, User, LogIn } from 'lucide-react';
 
 interface NavBarProps {
   isAuthenticated?: boolean;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ isAuthenticated }) => {
-  const { user, signOut } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
+const NavBar: React.FC<NavBarProps> = ({ isAuthenticated = false }) => {
   return (
     <nav className="sticky top-0 z-50 bg-card border-b border-border shadow-sm backdrop-blur-md bg-opacity-90">
       <div className="container flex items-center justify-between h-16">
@@ -48,25 +32,12 @@ const NavBar: React.FC<NavBarProps> = ({ isAuthenticated }) => {
 
         <div className="flex items-center space-x-2">
           {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <User className="h-5 w-5" />
-                  <span className="sr-only">Profile</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/profile" className="w-full cursor-pointer">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link to="/profile">
+              <Button variant="outline" size="icon">
+                <User className="h-5 w-5" />
+                <span className="sr-only">Profile</span>
+              </Button>
+            </Link>
           ) : (
             <Link to="/login">
               <Button variant="outline" className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
@@ -125,7 +126,7 @@ const RolesPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <NavBar />
+      <NavBar isAuthenticated={true} />
       
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8">
